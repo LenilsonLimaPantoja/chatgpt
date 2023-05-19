@@ -1,5 +1,4 @@
 const axios = require("axios");
-const mysql = require("../../mysql.js");
 
 exports.getOpenAi = async (req, res, next) => {
   try {
@@ -28,8 +27,6 @@ exports.getOpenAi = async (req, res, next) => {
       },
       requestOptions
     );
-
-    await mysql.execute(`insert into mensagem (descricao) values (?)`, [texto]);
 
     res.status(200).send({
       retorno: {
