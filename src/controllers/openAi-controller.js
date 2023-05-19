@@ -1,4 +1,5 @@
 const axios = require("axios");
+const mysql = require("../../mysql.js");
 
 exports.getOpenAi = async (req, res, next) => {
   try {
@@ -24,9 +25,12 @@ exports.getOpenAi = async (req, res, next) => {
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: texto }],
         temperature: 0.7,
+        language: 'pt'
       },
       requestOptions
     );
+
+    await mysql.execute(`insert into mensagem (descricao) values (?)`, [texto]);
 
     res.status(200).send({
       retorno: {
